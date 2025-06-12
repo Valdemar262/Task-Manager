@@ -1,20 +1,26 @@
-# Task-Manager
+## Task-Manager.
 
-# laravel-starter.
+### Introduction:
 
-## Introduction:
+### Task-Manager provides simple containerized infrastructure of `Laravel, Nginx, PostgreSQL and Xdebug`.
 
-Laravel starter provides simple containerized infrastructure of `Laravel, Nginx, Mysql and Xdebug`.
+### Getting started:
 
-## Getting started:
-
-## local deployment:
+### local deployment:
 
 ### 1) create `.env` file in `app` directory (copy or rename `.env-example`).
-### 2) If you want, you may to rename container group and separate containers
-To do this rename all using `your-project-name` into `docker-compose.yaml` file.
-### 3) Start containers through:
+### 2) Start containers through:
 #### `docker compose --env-file app/.env up -d`.
-### 4) Into app container run next command:
+### 3) Into app container run next command:
 #### `composer install`.
+### 4) Run the database migration using:
+#### `php artisan migrate`.
+### 5) Then generate encryption keys to create secure access tokens
+#### `php artisan passport:install`,
+### insert password grant client in `.env`
+#### PASSPORT_PASSWORD_CLIENT_ID=... ,
+#### PASSPORT_PASSWORD_SECRET=... .
+### 6) Create the first role for users:
+#### `php artisan permission:create-role programmer api`.
+#### `php artisan permission:create-role manager api`.
 
