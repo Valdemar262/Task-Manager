@@ -5,6 +5,12 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    'OAUTH_URL' => env('OAUTH_URL', 'http://nginx:80'),
+
+    'PASSPORT_PASSWORD_CLIENT_ID' => env('PASSPORT_PASSWORD_CLIENT_ID'),
+
+    'PASSPORT_PASSWORD_SECRET' => env('PASSPORT_PASSWORD_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -109,7 +115,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'ru_RU',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 
     /*
