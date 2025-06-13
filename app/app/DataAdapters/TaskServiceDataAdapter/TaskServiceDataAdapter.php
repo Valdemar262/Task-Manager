@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Data\CreateTaskDTO\CreateTaskDTO;
 use App\Data\UpdateTaskDTO\UpdateTaskDTO;
 use App\Data\AssignUserDTO\TaskUserDTO;
+use App\Data\GroupedTasksDTO\GroupedTasksDTO;
 
 class TaskServiceDataAdapter
 {
@@ -75,6 +76,27 @@ class TaskServiceDataAdapter
     ): TaskUserDTO {
         return TaskUserDTO::validateAndCreate([
             'user_id' => $user_id,
+        ]);
+    }
+
+    public function createGroupedTasksDTOByCollection(Collection $collection): GroupedTasksDTO
+    {
+        return $this->createGroupedTasksDTO(
+            todo: $collection->get('todo', []),
+            inProgress: $collection->get('in_progress', []),
+            completed: $collection->get('completed', []),
+        );
+    }
+
+    public function createGroupedTasksDTO(
+        Collection $todo,
+        Collection $inProgress,
+        Collection $completed,
+    ): GroupedTasksDTO {
+        return GroupedTasksDTO::validateAndCreate([
+            'todo' => $todo,
+            'inProgress' => $inProgress,
+            'completed' => $completed,
         ]);
     }
 }

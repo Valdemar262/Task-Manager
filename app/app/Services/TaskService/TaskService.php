@@ -5,6 +5,7 @@ namespace App\Services\TaskService;
 use App\Data\AllTasksDTO\AllTasksDTO;
 use App\Data\AssignUserDTO\TaskUserDTO;
 use App\Data\CreateTaskDTO\CreateTaskDTO;
+use App\Data\GroupedTasksDTO\GroupedTasksDTO;
 use App\Data\UpdateTaskDTO\UpdateTaskDTO;
 use App\DataAdapters\TaskServiceDataAdapter\TaskServiceDataAdapter;
 use App\Enums\ResponseMessages;
@@ -14,6 +15,7 @@ use App\Repositories\TaskRepository\TaskRepository;
 use App\Repositories\UserRepository\UserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Enums\UserState;
+use Illuminate\Http\JsonResponse;
 
 class TaskService
 {
@@ -87,5 +89,12 @@ class TaskService
         $task->users()->detach($user->id);
 
         return $this->taskRepository->loadTaskWithUsers($task);
+    }
+
+    public function getGroupTasks(): GroupedTasksDTO
+    {
+        return $this->taskServiceDataAdapter->createGroupedTasksDTOByCollection(
+            Task::with('users')->get()->groupBy('state.value')
+        );
     }
 }

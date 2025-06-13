@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 
 class Handler extends ExceptionHandler
 {
@@ -23,8 +23,13 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (ThrottleRequestsException $e, $request) {
+            if ($request->is('api/createTask')) {
+                getSuccessResponse([
+                    'error' => 'Too many task creation attempts. Please try again later.',
+                    'retry_after' => $e->getHeaders()['Retry-After'] . ' sec' ?? 60
+                ]);
+            }
         });
     }
 }

@@ -70,4 +70,9 @@ class TaskController
             )
         );
     }
+
+    public function getTasksGroupByStatus(): JsonResponse
+    {
+        return getSuccessResponse($this->taskService->getGroupTasks());
+    }
 }
