@@ -16,11 +16,7 @@ enum ResponseMessages: string
 
     case ROLE_REMOVED = 'Role removed successfully';
 
-    case DELETE_STATEMENT_SUCCESS = 'Statement deleted successfully';
-
-    case DELETE_BOOKING_SUCCESS = 'Booking deleted successfully';
-
-    case BOOKING_NOT_FOUND = 'Booking not found';
+    case DELETE_TASK_SUCCESS = 'Task deleted successfully';
 
     public static function values(): array
     {

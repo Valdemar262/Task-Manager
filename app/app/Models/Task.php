@@ -17,6 +17,11 @@ class Task extends Model
         'state',
     ];
 
+    protected $hidden = [
+        'updated_at',
+        'created_at',
+    ];
+
     protected $casts = [
         'state' => TaskState::class,
     ];
