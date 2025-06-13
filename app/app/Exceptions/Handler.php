@@ -25,7 +25,7 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function (ThrottleRequestsException $e, $request) {
             if ($request->is('api/createTask')) {
-                return getSuccessResponse([
+                getSuccessResponse([
                     'error' => 'Too many task creation attempts. Please try again later.',
                     'retry_after' => $e->getHeaders()['Retry-After'] . ' sec' ?? 60
                 ]);
